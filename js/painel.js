@@ -255,10 +255,11 @@
     s += '</defs>';
     for (let i = 0; i < 10; i++) {
       const f = Math.max(0, Math.min(1, filled - i));
-      const g = (fill, extra) => '<g transform="translate(' + (i * 24) + ',1)" ' + extra + ' style="fill:' + fill + '">' + shape + '</g>';
+      // --i numera as figuras coloridas para a animação acendê-las em sequência
+      const g = (fill, extra) => '<g transform="translate(' + (i * 24) + ',1)" ' + extra + ' style="--i:' + i + ';fill:' + fill + '">' + shape + '</g>';
       s += g('var(--cds-chart-muted)', 'opacity=".45"');
-      if (f >= 1) s += g(color, '');
-      else if (f > 0) s += '<g clip-path="url(#' + uid + '-c)">' + g(color, '') + '</g>';
+      if (f >= 1) s += g(color, 'class="tg-c"');
+      else if (f > 0) s += '<g clip-path="url(#' + uid + '-c)">' + g(color, 'class="tg-c"') + '</g>';
     }
     svg.innerHTML = s;
     svg.setAttribute('aria-label', em10(v) + ' em cada 10');
@@ -713,7 +714,10 @@
     if (dash.data(f.ds).status !== 'ok') return;
     const row = get(f.ind, f.grupo, f.resp, TOTAL, f.ds);
     if (!row) { factIdx = (factIdx + 1) % FACTS.length; return drawFact(); }
-    document.getElementById('fato-ic').innerHTML = ic(f.icon);
+    const icEl = document.getElementById('fato-ic');
+    icEl.innerHTML = ic(f.icon);
+    // reinicia a animação de entrada da frase a cada novo dado
+    [txt, icEl].forEach((el) => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
     txt.classList.remove('dash-skeleton'); txt.replaceChildren();
     const b = document.createElement('b'); b.textContent = freqTxt(row.pct);
     // com "1 em cada 10" o verbo vai para o singular

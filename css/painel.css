@@ -143,12 +143,42 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
   .tg-dot-lab{grid-column:1/-1}
   .tg-axis .tg-dot-lab{display:none}
 }
+/* ---------- Animações (js/animacao.js liga .tg-reveal / .tg-in) ----------
+   --d: atraso do bloco ao entrar na tela; --i: posição da linha ou figura dentro do gráfico. */
 @media (prefers-reduced-motion:no-preference){
-  .tg-anim .tg-p{animation:tg-in var(--cds-dur-slow) var(--cds-ease-out) both;animation-delay:calc(var(--i) * 6ms)}
-  .tg-anim-bars .tg-fill{animation:tg-grow var(--cds-dur-slow) var(--cds-ease-out) both}
-  @keyframes tg-in{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
-  @keyframes tg-grow{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+  :root{--tg-ease:cubic-bezier(.16,1,.3,1)}
+  .tg-reveal{opacity:0;transform:translateY(16px);transition:opacity .7s var(--tg-ease) var(--d,0ms),transform .7s var(--tg-ease) var(--d,0ms)}
+  .tg-reveal.tg-in{opacity:1;transform:none}
+  /* barras: crescem da esquerda, uma após a outra; margem de erro e traço do Brasil aparecem depois */
+  .tg-in .tg-fill{transform-origin:left;animation:tg-grow 1s var(--tg-ease) both;animation-delay:calc(var(--d,0ms) + 120ms + var(--i,0) * 70ms)}
+  .tg-in .tg-moe,.tg-in .tg-ref{animation:tg-fade .5s ease-out both;animation-delay:calc(var(--d,0ms) + 700ms + var(--i,0) * 70ms)}
+  /* barras empilhadas: pintadas da esquerda para a direita */
+  .tg-in .tg-stack{animation:tg-wipe 1.1s var(--tg-ease) both;animation-delay:calc(var(--d,0ms) + 120ms + var(--i,0) * 90ms)}
+  .tg-in .tg-stack > div{animation:none}
+  /* legendas e linhas de texto dos gráficos */
+  .tg-in .tg-stack-legend > div,.tg-in .tg-bar-label,.tg-in .tg-dot-lab,.tg-in .tg-dot-val{animation:tg-rise .6s var(--tg-ease) both;animation-delay:calc(var(--d,0ms) + 80ms + var(--i,0) * 60ms)}
+  /* pictogramas: as figuras acendem em sequência (só opacidade, para não mexer na posição do SVG) */
+  .tg-in .tg-p{animation:tg-fadein .35s ease-out both;animation-delay:calc(var(--d,0ms) + 100ms + var(--i,0) * 9ms)}
+  .tg-in .tg-iso10 .tg-c{animation:tg-fadein .4s ease-out both;animation-delay:calc(var(--d,0ms) + 150ms + var(--i,0) * 70ms)}
+  /* comparação: faixa da margem de erro abre a partir do ponto, e o ponto surge */
+  .tg-in .tg-ci{animation:tg-grow-c .8s var(--tg-ease) both;animation-delay:calc(var(--d,0ms) + 200ms + var(--i,0) * 70ms)}
+  .tg-in .tg-dot{animation:tg-pop .6s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--d,0ms) + 300ms + var(--i,0) * 70ms)}
+  /* cartões da tela inicial: leve elevação ao passar o mouse */
+  .tg-door,.tg-fact{transition:opacity .7s var(--tg-ease) var(--d,0ms),transform .5s var(--tg-ease),border-color var(--cds-dur-slow),box-shadow var(--cds-dur-slow)}
+  .tg-door.tg-in:hover{transform:translateY(-3px)}
+  #fato-txt,#fato-ic{animation:tg-rise .5s var(--tg-ease) both}
+  @keyframes tg-grow{from{transform:scaleX(0)}}
+  @keyframes tg-grow-c{from{transform:scaleX(0);opacity:0}}
+  @keyframes tg-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes tg-fade{from{opacity:0}}
+  @keyframes tg-fadein{from{opacity:0}}
+  @keyframes tg-rise{from{opacity:0;transform:translateY(6px)}}
+  @keyframes tg-pop{from{transform:scale(0)}}
 }
+/* a imagem de compartilhar e a impressão saem sempre completas */
+.tg-shot *,.tg-shot{animation:none!important;transition:none!important}
+.tg-shot .tg-reveal{opacity:1!important;transform:none!important}
+@media print{.tg-reveal{opacity:1!important;transform:none!important}*{animation:none!important}}
 
 /* ---------- Barra de navegação ---------- */
 .nav{position:sticky;top:0;z-index:20;background:var(--color-bg);background:color-mix(in srgb,var(--color-bg) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--color-border-line)}
