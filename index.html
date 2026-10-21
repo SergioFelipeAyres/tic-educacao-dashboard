@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Escolas e Gestores em Dados</title>
+<meta name="description" content="Painel interativo com os dados de gestores escolares e escolas da pesquisa TIC Educação 2025 (NIC.br/Cetic.br), com pictogramas, margem de erro e linguagem simples.">
+<meta property="og:title" content="Escolas e Gestores em Dados">
+<meta property="og:description" content="TIC Educação 2025 em linguagem simples: conexão, equipamentos, IA e perfil dos gestores das escolas brasileiras.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232f5fd0' d='M12 2.5L2.5 8.5h19zM4.5 9.5h15V21h-5.5v-5h-4v5H4.5z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="css/painel.css">
+</head>
+<body>
+<main class="site">
+<div class="tg" id="painel">
+  <header class="tg-head" id="topo">
+    <span class="tg-eyebrow">TIC Educação 2025 · NIC.br/Cetic.br</span>
+    <h1 class="tg-title" id="tg-h1">Quem dirige as escolas brasileiras e como usa a tecnologia</h1>
+    <p class="tg-take dash-skeleton" id="tg-take">—</p>
+  </header>
+
+  <div class="tg-tabs" role="tablist" aria-label="Público da pesquisa">
+    <button type="button" class="tg-tab" role="tab" id="tab-gestores" data-view="gestores" aria-selected="true"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>Gestores</button>
+    <button type="button" class="tg-tab" role="tab" id="tab-escolas" data-view="escolas" aria-selected="false"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5L2.5 8.5h19z"/><path d="M4.5 9.5h15V21h-5.5v-5h-4v5H4.5z"/></svg>Escolas</button>
+  </div>
+
+  <div class="tg-filter" id="filtro">
+    <label for="tg-recorte">Ver os dados de</label>
+    <select id="tg-recorte" aria-label="Recorte dos dados"></select>
+    <button type="button" id="tg-reset">Voltar para Brasil</button>
+    <p class="tg-filter-note" id="tg-filter-note">Escolha uma região, rede, porte ou perfil. Todos os gráficos mudam juntos.</p>
+  </div>
+
+  <!-- ===================== GESTORES ===================== -->
+  <div class="tg-page" id="gestores" role="tabpanel" aria-labelledby="tab-gestores">
+    <section class="tg-kpis" id="destaques-gestores" aria-label="Destaques dos gestores">
+      <div class="tg-kpi" id="kpi-total">
+        <div class="tg-kpi-label">Gestores representados</div>
+        <div class="tg-kpi-num dash-skeleton tg-total" data-calc="total_recorte">—</div>
+        <div class="tg-kpi-cmp tg-total-cmp">Estimativa para escolas de Ensino Fundamental e Médio</div>
+      </div>
+      <div class="tg-kpi" id="kpi-mulheres" data-ind="A1" data-grupo="" data-resp="Feminino">
+        <div class="tg-kpi-label">São mulheres</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-pos" data-ind="A4" data-grupo="Especialização ou pós-graduação" data-resp="Sim">
+        <div class="tg-kpi-label">Têm especialização ou pós</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-reuniao" data-ind="D3_1" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Reuniram professores sobre tecnologia</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-ia" data-ind="D9A" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Usam inteligência artificial na gestão</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="perfil">
+      <div class="tg-sec-head"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>
+        <div><h2 class="tg-sec-title">Quem são os gestores</h2><p class="tg-sec-sub">Perfil de quem está na direção das escolas: sexo, idade, cor ou raça, formação e experiência no cargo.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-sexo"><h3 class="tg-card-title">Sexo</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-sexo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A1"></p></article>
+        <article class="tg-card" id="card-idade"><h3 class="tg-card-title">Idade</h3><p class="tg-card-note">Faixas em ordem, do tom mais claro (mais jovens) ao mais escuro.</p><div class="tg-chart" id="ch-idade" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A2"></p></article>
+        <article class="tg-card" id="card-raca"><h3 class="tg-card-title">Cor ou raça</h3><p class="tg-card-note">Autodeclaração, nas categorias do IBGE.</p><div class="tg-chart" id="ch-raca" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A3"></p></article>
+        <article class="tg-card" id="card-formacao"><h3 class="tg-card-title">Formação além da graduação</h3><p class="tg-card-note">Cada barra mostra quantos têm aquele nível concluído.</p><div class="tg-chart" id="ch-formacao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A4"></p></article>
+        <article class="tg-card" id="card-tempo"><h3 class="tg-card-title">Tempo na direção da escola</h3><p class="tg-card-note">Do tom mais claro (recém-chegados) ao mais escuro (mais de 10 anos).</p><div class="tg-chart" id="ch-tempo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D2"></p></article>
+        <article class="tg-card" id="card-funcao"><h3 class="tg-card-title">Quem dirige as escolas rurais</h3><p class="tg-card-note">Função de quem responde pela direção. Só existe para escolas rurais.</p><div class="tg-chart" id="ch-funcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D1"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="tecnologia">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg>
+        <div><h2 class="tg-sec-title">Tecnologia na rotina da gestão</h2><p class="tg-sec-sub">Se a direção conversa sobre tecnologia com a equipe e as famílias, sobre o quê, e como avalia sua integração ao ensino. Base: gestores de escolas com acesso à internet.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-reunioes"><h3 class="tg-card-title">Reuniões sobre tecnologia nos últimos 12 meses</h3><p class="tg-card-note">Cada figura representa 10% dos gestores.</p><div class="tg-chart" id="ch-reunioes" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D3_1"></p></article>
+        <article class="tg-card" id="card-temas"><h3 class="tg-card-title">Temas discutidos nessas reuniões</h3><p class="tg-card-note">Do tema mais citado ao menos citado.</p><div class="tg-chart" id="ch-temas" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D7"></p></article>
+        <article class="tg-card tg-wide" id="card-percepcao"><h3 class="tg-card-title">A tecnologia está integrada ao ensino?</h3><p class="tg-card-note">Quanto os gestores concordam com cada afirmação, da mais aceita para a menos aceita.</p><div class="tg-chart" id="ch-percepcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D8"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="ia">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4-6.4-2.1 6.4-2.1z"/><path d="M19 17v4M17 19h4"/></svg>
+        <div><h2 class="tg-sec-title">Inteligência artificial na gestão</h2><p class="tg-sec-sub">Pela primeira vez a pesquisa pergunta se a direção usa IA em tarefas pedagógicas, administrativas ou financeiras.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-ia-adocao"><h3 class="tg-card-title">Quantos já usam IA</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-ia" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9A"></p></article>
+        <article class="tg-card" id="card-ia-usos"><h3 class="tg-card-title">Para que usam a IA</h3><p class="tg-card-note">Entre quem já usa IA na gestão.</p><div class="tg-chart" id="ch-ia-usos" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9B"></p></article>
+        <article class="tg-card" id="card-ia-contrib"><h3 class="tg-card-title">Onde a IA ajudou</h3><p class="tg-card-note">Áreas em que os gestores dizem que a IA contribuiu.</p><div class="tg-chart" id="ch-ia-contrib" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9C"></p></article>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== ESCOLAS ===================== -->
+  <div class="tg-page" id="escolas" role="tabpanel" aria-labelledby="tab-escolas" hidden>
+    <section class="tg-kpis" id="destaques-escolas" aria-label="Destaques das escolas">
+      <div class="tg-kpi" id="kpi-escolas-total">
+        <div class="tg-kpi-label">Escolas representadas</div>
+        <div class="tg-kpi-num dash-skeleton tg-total" data-calc="total_escolas">—</div>
+        <div class="tg-kpi-cmp tg-total-cmp">Estimativa de escolas de Ensino Fundamental e Médio</div>
+      </div>
+      <div class="tg-kpi" id="kpi-internet" data-ind="A1" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Têm acesso à internet</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="escolas" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-alunos" data-ind="A8" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Oferecem computador e internet aos alunos</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="escolas" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-celular" data-ind="C3C" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Têm regras para o celular dos alunos</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="escolas" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-guia-ia" data-ind="E5A" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Têm guia sobre o uso de IA</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="escolas" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="conexao">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r=".8"/></svg>
+        <div><h2 class="tg-sec-title">Conexão</h2><p class="tg-sec-sub">Ter internet na escola não significa que os alunos a usem. Veja cada camada do acesso, o tipo e a velocidade da conexão e o que atrapalha.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card tg-wide" id="card-camadas"><h3 class="tg-card-title">Da internet na escola ao uso pelos alunos</h3><p class="tg-card-note">Cada prédio representa 10% das escolas.</p><div class="tg-chart" id="ch-camadas" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="A1"></p></article>
+        <article class="tg-card" id="card-tipo-conexao"><h3 class="tg-card-title">Principal tipo de conexão</h3><p class="tg-card-note">Entre as escolas com internet.</p><div class="tg-chart" id="ch-tipo-conexao" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="A2"></p></article>
+        <article class="tg-card" id="card-velocidade"><h3 class="tg-card-title">Velocidade da conexão</h3><p class="tg-card-note">Do tom mais claro (mais lenta) ao mais escuro (mais rápida). Em cinza, quem não soube informar.</p><div class="tg-chart" id="ch-velocidade" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="A3_1"></p></article>
+        <article class="tg-card" id="card-sem-internet"><h3 class="tg-card-title">Por que algumas escolas não têm internet</h3><p class="tg-card-note">Motivos citados pelas escolas sem conexão. Por serem poucas, as margens de erro são grandes.</p><div class="tg-chart" id="ch-sem-internet" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="A20"></p></article>
+        <article class="tg-card tg-wide" id="card-problemas"><h3 class="tg-card-title">Com que frequência a internet dá problema</h3><p class="tg-card-note">Do tom mais escuro (sempre) ao mais claro (nunca), ordenado pelos problemas mais frequentes.</p><div class="tg-chart" id="ch-problemas" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="A19"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="equipamentos">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
+        <div><h2 class="tg-sec-title">Equipamentos</h2><p class="tg-sec-sub">Que dispositivos as escolas têm, quantos alunos dividem cada computador e quando o parque foi renovado.</p></div></div>
+      <div class="tg-grid2">
+        <article class="tg-card" id="card-computadores"><h3 class="tg-card-title">Tipos de computador</h3><p class="tg-card-note">Entre as escolas que têm computador.</p><div class="tg-chart" id="ch-computadores" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="B2"></p></article>
+        <article class="tg-card" id="card-recursos"><h3 class="tg-card-title">Outros recursos para as aulas</h3><p class="tg-card-note">Do mais comum ao menos comum.</p><div class="tg-chart" id="ch-recursos" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="B14"></p></article>
+        <article class="tg-card" id="card-alunos-pc"><h3 class="tg-card-title">Quantos alunos por computador</h3><p class="tg-card-note">No turno com mais alunos. Em cinza, escolas sem computador para os alunos.</p><div class="tg-chart" id="ch-alunos-pc" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="B4C"></p></article>
+        <article class="tg-card" id="card-renovacao"><h3 class="tg-card-title">Última compra ou doação de dispositivos</h3><p class="tg-card-note">Do tom mais escuro (recente) ao mais claro (há mais tempo).</p><div class="tg-chart" id="ch-renovacao" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="K1_1"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="regras">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8-7.5 9.5-4.3-1.5-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><h2 class="tg-sec-title">Regras, IA e proteção de dados</h2><p class="tg-sec-sub">O que as escolas já definiram sobre celular, inteligência artificial e dados dos alunos, e que sistemas de vigilância usam.</p></div></div>
+      <div class="tg-grid21">
+        <article class="tg-card" id="card-politicas"><h3 class="tg-card-title">O que as escolas já têm definido</h3><p class="tg-card-note">Cada prédio representa 10% das escolas.</p><div class="tg-chart" id="ch-politicas" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="C3C"></p></article>
+        <article class="tg-card" id="card-vigilancia"><h3 class="tg-card-title">Câmeras e identificação dos alunos</h3><p class="tg-card-note">Sistemas que coletam imagem ou dados do corpo dos alunos.</p><div class="tg-chart" id="ch-vigilancia" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="E3"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="comunicacao">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></svg>
+        <div><h2 class="tg-sec-title">Comunicação e plataformas</h2><p class="tg-sec-sub">Onde a escola fala com as famílias e que plataformas digitais usa.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-redes"><h3 class="tg-card-title">Redes sociais da escola</h3><p class="tg-card-note">Entre todas as escolas.</p><div class="tg-chart" id="ch-redes" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="F3"></p></article>
+        <article class="tg-card" id="card-canais"><h3 class="tg-card-title">Mensagens, aplicativos e plataformas</h3><p class="tg-card-note">Entre todas as escolas.</p><div class="tg-chart" id="ch-canais" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="F4A"></p></article>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== COMPARAR (compartilhado) ===================== -->
+  <section class="tg-sec" id="comparar">
+    <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+      <div><h2 class="tg-sec-title">Compare grupos</h2><p class="tg-sec-sub">Escolha um indicador de gestores ou de escolas e um tipo de recorte. A linha vertical é o Brasil; a faixa clara em volta de cada ponto é a margem de erro.</p></div></div>
+    <article class="tg-card" id="card-comparar">
+      <div class="tg-cmp-ctrl">
+        <label for="tg-cmp-ind">Indicador</label>
+        <select id="tg-cmp-ind" aria-label="Indicador para comparar"></select>
+        <label for="tg-cmp-cat">por</label>
+        <select id="tg-cmp-cat" aria-label="Tipo de recorte"></select>
+      </div>
+      <div class="tg-chart" id="ch-comparar" data-source="gestores escolas"></div>
+      <p class="tg-card-note" style="margin-top:0">Só dizemos que um grupo está acima ou abaixo do Brasil quando a diferença é maior que a margem de erro daquele grupo.</p>
+    </article>
+  </section>
+
+  <section class="tg-sec" id="como-ler">
+    <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg>
+      <div><h2 class="tg-sec-title">Como ler este painel</h2></div></div>
+    <div class="tg-how">
+      <article class="tg-card" id="card-leitura">
+        <h3 class="tg-card-title">Leitura dos dados</h3>
+        <ul>
+          <li><b>Percentuais</b> dizem quantos, a cada 100, estão em uma situação. "7 em cada 10" é o percentual arredondado para a dezena.</li>
+          <li><b>Base</b> é o grupo a que o percentual se refere. Ela aparece no rodapé de cada cartão e muda entre os indicadores.</li>
+          <li><b>Margem de erro</b> é a faixa em que o valor real provavelmente está, porque a pesquisa entrevista uma amostra. Passe o cursor ou toque numa barra para vê-la.</li>
+          <li><span class="tg-refkey" aria-hidden="true"></span><b>Traço escuro</b> nas barras marca o valor do Brasil quando um recorte está selecionado.</li>
+          <li><b>Pictogramas</b>: a figura de pessoa representa gestores; o prédio representa escolas.</li>
+          <li>Sexo, cor ou raça e idade são recortes do gestor e não existem nas tabelas de escolas. Respostas "Não respondeu" ficam fora do filtro.</li>
+        </ul>
+      </article>
+      <article class="tg-card" id="card-principios">
+        <h3 class="tg-card-title">Princípios de design aplicados</h3>
+        <ul>
+          <li><b>Pictogramas</b> no lugar de números soltos, em que cada figura vale uma fração fixa do total, como no Isotype. Elementos pictóricos ajudam a reter a informação (Bateman et al., 2010).</li>
+          <li><b>Uma cor de destaque</b> para a resposta principal e tons neutros para o resto. Categorias em ordem (idade, velocidade, frequência) usam tons de uma só cor.</li>
+          <li><b>Frases antes dos gráficos</b>, em linguagem simples, para quem tem menos letramento em dados (Knaflic, 2016; Spinillo, 2023).</li>
+          <li><b>Integridade</b>: base e margem de erro sempre visíveis e barras a partir do zero, para não induzir a erro (Dastani, 2002).</li>
+          <li><b>Feito para o celular</b>: tudo cabe numa coluna e funciona ao toque (Spinillo, 2023).</li>
+        </ul>
+      </article>
+    </div>
+    <p class="tg-base" style="border-top:none">Fonte: NIC.br/Cetic.br, Pesquisa TIC Educação 2025, tabelas de gestores escolares e de escolas (v1.0). Proporções, margens de erro e totais estimados.</p>
+  </section>
+
+  <div class="tg-tip" id="tg-tip" hidden></div>
+</div>
+<footer class="site-foot">
+  <span>Dados: <a href="https://cetic.br/pt/pesquisa/educacao/" rel="noopener">NIC.br/Cetic.br — Pesquisa TIC Educação 2025</a> (tabelas v1.0).</span>
+  <span>Produto da dissertação "Comunicação visual como facilitadora da visualização de dados" — Sérgio Felipe Ayres, Mestrado Profissional em Comunicação Digital e Cultura de Dados, FGV.</span>
+</footer>
+</main>
+<script src="vendor/d3-7.9.0.min.js"></script>
+<script src="js/dash-shim.js"></script>
+<script src="js/painel.js"></script>
+</body>
+</html>
