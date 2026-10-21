@@ -25,6 +25,7 @@
       <a class="nav-link" href="#inicio" data-view="inicio"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11L12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/></svg>Início</a>
       <a class="nav-link" href="#gestores" data-view="gestores"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>Gestores</a>
       <a class="nav-link" href="#escolas" data-view="escolas"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5L2.5 8.5h19z"/><path d="M4.5 9.5h15V21h-5.5v-5h-4v5H4.5z"/></svg>Escolas</a>
+      <a class="nav-link" href="#sobre" data-view="sobre"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.5h.01"/></svg>Sobre</a>
     </nav>
     <button type="button" class="nav-tema" id="nav-tema" aria-label="Mudar o tema">
       <svg class="tg-ic nav-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
@@ -107,6 +108,69 @@
         <div class="tg-feature"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg><div><h3>Filtro por recorte</h3><p>Veja os dados por região, rede, porte da escola ou perfil do gestor. Todos os gráficos mudam juntos.</p></div></div>
         <div class="tg-feature"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="7" cy="18" r="2"/></svg><div><h3><a href="#comparar">Compare grupos</a></h3><p>Coloque grupos lado a lado com a margem de erro e veja quem está acima ou abaixo do Brasil.</p></div></div>
         <div class="tg-feature"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg><div><h3><a href="#como-ler">Como ler o painel</a></h3><p>O que são base, margem de erro e os princípios de design usados.</p></div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== SOBRE ===================== -->
+  <div class="tg-page" id="sobre" hidden>
+    <section class="tg-hero">
+      <span class="tg-eyebrow">Sobre</span>
+      <h1 class="tg-title">Dados da educação para quem não é especialista em dados</h1>
+      <p class="tg-hero-text">O EducaDados transforma as tabelas da pesquisa TIC Educação 2025 em gráficos, pictogramas e frases simples, para que gestores, professores, famílias, jornalistas e qualquer pessoa interessada entendam como a tecnologia está chegando às escolas brasileiras.</p>
+    </section>
+
+    <div class="tg-grid2">
+      <article class="tg-card tg-about" id="sobre-projeto">
+        <div class="tg-about-head"><span class="tg-door-ic"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-4.5L21 9l-9 4.5z"/><path d="M7 11v4.5c1.5 1.3 3 2 5 2s3.5-.7 5-2V11M21 9v5"/></svg></span><h2 class="tg-card-title">O projeto</h2></div>
+        <p>O EducaDados é o produto da dissertação <i>Comunicação visual como facilitadora da visualização de dados</i>, do Mestrado Profissional em Comunicação Digital e Cultura de Dados da FGV.</p>
+        <p>A pergunta por trás dele: como apresentar dados de pesquisa de um jeito que leitores sem formação em estatística consigam ler, entender e usar? A resposta testada aqui aplica princípios de design da informação a dados reais e públicos.</p>
+      </article>
+
+      <article class="tg-card tg-about" id="sobre-dados">
+        <div class="tg-about-head"><span class="tg-door-ic"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg></span><h2 class="tg-card-title">Os dados</h2></div>
+        <p>Todos os números vêm da <b>Pesquisa TIC Educação 2025</b>, feita pelo Núcleo de Informação e Coordenação do Ponto BR (NIC.br), por meio do Cetic.br. O painel usa as tabelas publicadas (versão 1.0) de dois públicos:</p>
+        <ul>
+          <li><b>Gestores escolares</b>: perfil de quem dirige a escola, tecnologia na rotina da gestão e uso de inteligência artificial.</li>
+          <li><b>Escolas</b> de Ensino Fundamental e Médio: conexão, equipamentos, regras, proteção de dados e comunicação.</li>
+        </ul>
+        <p>São proporções, margens de erro e totais estimados a partir de uma amostra. Recortes cruzados, como escolas particulares do Sudeste, não existem nas tabelas publicadas.</p>
+        <a class="tg-fact-link" href="https://cetic.br/pt/pesquisa/educacao/" rel="noopener">Conheça a pesquisa no Cetic.br <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="tg-card tg-about" id="sobre-design">
+        <div class="tg-about-head"><span class="tg-door-ic"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg></span><h2 class="tg-card-title">Como o painel foi pensado</h2></div>
+        <ul>
+          <li><b>Pictogramas</b> em que cada figura vale uma fração fixa do total, como no Isotype.</li>
+          <li><b>Uma cor de destaque</b> para a resposta principal e tons neutros para o resto.</li>
+          <li><b>Frases antes dos gráficos</b>, como "7 em cada 10", em linguagem simples.</li>
+          <li><b>Integridade</b>: base e margem de erro sempre visíveis e barras a partir do zero.</li>
+          <li><b>Feito para o celular</b>: tudo cabe numa coluna e funciona ao toque.</li>
+        </ul>
+        <a class="tg-fact-link" href="#como-ler">Como ler o painel e referências <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="tg-card tg-about" id="sobre-autor">
+        <div class="tg-about-head"><span class="tg-door-ic"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg></span><h2 class="tg-card-title">Autoria</h2></div>
+        <p><b>Sérgio Felipe Ayres</b><br>Mestrado Profissional em Comunicação Digital e Cultura de Dados, Fundação Getulio Vargas (FGV).</p>
+        <p>O código do site é aberto e pode ser consultado no GitHub.</p>
+        <a class="tg-fact-link" href="https://github.com/sergiofelipeayres/tic-educacao-dashboard" rel="noopener">Ver o código no GitHub <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+
+    <section class="tg-sec" aria-labelledby="sobre-citar">
+      <h2 class="tg-sec-title" id="sobre-citar">Como citar</h2>
+      <div class="tg-cite">
+        <div class="tg-cite-row">
+          <span class="tg-cite-lab">O painel</span>
+          <p id="cite-painel">AYRES, Sérgio Felipe. <i>EducaDados</i>: a tecnologia nas escolas brasileiras, em linguagem simples. 2026. Painel interativo. Disponível em: https://sergiofelipeayres.github.io/tic-educacao-dashboard/.</p>
+          <button type="button" class="tg-cite-copy" data-copy="cite-painel">Copiar</button>
+        </div>
+        <div class="tg-cite-row">
+          <span class="tg-cite-lab">Os dados</span>
+          <p id="cite-dados">Núcleo de Informação e Coordenação do Ponto BR. (2026). <i>Pesquisa sobre o uso das tecnologias de informação e comunicação nas escolas brasileiras: TIC Educação 2025</i> [Tabelas, v1.0].</p>
+          <button type="button" class="tg-cite-copy" data-copy="cite-dados">Copiar</button>
+        </div>
       </div>
     </section>
   </div>

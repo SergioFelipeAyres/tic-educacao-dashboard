@@ -18,6 +18,7 @@ leitura confortável no celular.
 - **Escolas**: camadas de acesso à internet, tipo e velocidade da conexão, problemas de
   conexão, equipamentos, regras sobre celular e IA, proteção de dados, câmeras e biometria,
   redes sociais e plataformas.
+- **Sobre**: o projeto, a pesquisa, os princípios de design, autoria e como citar.
 - **Filtro de recorte** (região, área, rede, porte etc.) e **comparação entre grupos** com
   margem de erro.
 

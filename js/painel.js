@@ -371,14 +371,15 @@
   };
 
   // ---------- view (navbar) ----------
-  const VIEWS = ['inicio', 'gestores', 'escolas'];
+  const VIEWS = ['inicio', 'gestores', 'escolas', 'sobre'];
+  const DASH = ['gestores', 'escolas'];
   // a hash can name a view or any section inside one (e.g. #ia, #conexao, #comparar)
   const viewFromHash = () => {
     const h = decodeURIComponent(location.hash.slice(1));
     if (!h || VIEWS.includes(h)) return h || 'inicio';
     const el = document.getElementById(h);
     if (!el) return 'inicio';
-    return document.getElementById('escolas').contains(el) ? 'escolas' : document.getElementById('inicio').contains(el) ? 'inicio' : 'gestores';
+    return VIEWS.find((v) => v !== 'gestores' && document.getElementById(v).contains(el)) || 'gestores';
   };
   let view = viewFromHash();
   const firstDraw = { gestores: true, escolas: true };
@@ -386,7 +387,7 @@
   const showView = (v) => {
     navLinks.forEach((a) => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     VIEWS.forEach((id) => { document.getElementById(id).hidden = v !== id; });
-    document.querySelectorAll('.tg-dash-only').forEach((el) => { el.hidden = v === 'inicio'; });
+    document.querySelectorAll('.tg-dash-only').forEach((el) => { el.hidden = !DASH.includes(v); });
   };
   const setView = (v) => {
     view = v;
@@ -397,6 +398,14 @@
       dash.setParams({ recorte: TOTAL });
     } else draw();
   };
+  // botões "Copiar" da tela Sobre
+  document.querySelectorAll('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    const txt = document.getElementById(b.dataset.copy).textContent.trim();
+    try { await navigator.clipboard.writeText(txt); b.textContent = 'Copiado'; }
+    catch (e) { getSelection().selectAllChildren(document.getElementById(b.dataset.copy)); b.textContent = 'Selecionado'; }
+    setTimeout(() => { b.textContent = 'Copiar'; }, 2000);
+  }));
+
   window.addEventListener('hashchange', () => {
     const h = location.hash.slice(1);
     setView(viewFromHash());
@@ -767,6 +776,7 @@
 
     if (g.status === 'ok' && e.status === 'ok') buildControls();
     if (view === 'inicio') { drawHome(); return; }
+    if (!DASH.includes(view)) return;
     buildSelect(view);
     let rec = params.recorte || TOTAL;
     if (SEGS[view] && !SEGS[view].includes(rec)) rec = TOTAL;
