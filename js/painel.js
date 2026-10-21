@@ -505,7 +505,7 @@
 
     (() => {
       const el = document.getElementById('ch-percepcao');
-      const C = dash.colors[0], N = 'var(--cds-chart-muted)', X = dash.colors[1], O = 'var(--cds-chart-grid)';
+      const C = 'var(--color-positivo)', N = 'var(--cds-chart-muted)', X = 'var(--color-negativo)', O = 'var(--cds-chart-grid)';
       const its = Object.keys(D8).map((g) => {
         const c = get('D8', g, 'Concorda', rec), n = get('D8', g, 'Não concorda nem discorda', rec), x = get('D8', g, 'Discorda', rec);
         return c && n && x ? { g, c, n, x, o: Math.max(0, 100 - c.pct - n.pct - x.pct) } : null;
@@ -687,7 +687,7 @@
     ax.append(axl, axt, axv); w.append(ax);
     for (const { s, row } of rows) {
       const diff = row.pct - br.pct, out = row.moe != null && Math.abs(diff) > row.moe;
-      const col = !out ? 'var(--cds-chart-muted)' : diff > 0 ? dash.colors[0] : dash.colors[1];
+      const col = !out ? 'var(--cds-chart-muted)' : diff > 0 ? 'var(--color-positivo)' : 'var(--color-negativo)';
       const r = document.createElement('div'); r.className = 'tg-dot-row';
       const l = document.createElement('div'); l.className = 'tg-dot-lab'; l.textContent = segName(s);
       const t = document.createElement('div'); t.className = 'tg-dot-track';
@@ -698,12 +698,13 @@
       const v = document.createElement('div'); v.className = 'tg-dot-val';
       const b = document.createElement('b'); b.textContent = pct(row.pct); markRow(b, row);
       const vd = document.createElement('span'); vd.className = 'tg-verdict' + (out ? (diff > 0 ? ' tg-up' : ' tg-down') : '');
-      vd.textContent = out ? (diff > 0 ? '▲ acima do Brasil' : '▼ abaixo do Brasil') : 'dentro da margem';
+      if (out) { const ar = document.createElement('span'); ar.className = 'tg-arrow'; ar.setAttribute('aria-hidden', 'true'); ar.textContent = diff > 0 ? '▲' : '▼'; vd.append(ar, document.createTextNode(diff > 0 ? 'acima do Brasil' : 'abaixo do Brasil')); }
+      else vd.textContent = 'dentro da margem';
       v.append(b, vd);
       r.append(l, t, v); setTip(r, rowTip(m.label, row, br, s)); w.append(r);
     }
     const lg = document.createElement('div'); lg.className = 'tg-legend'; lg.style.marginTop = 'var(--cds-gap-sm)';
-    lg.innerHTML = '<span><span class="tg-sw" style="background:' + dash.colors[0] + ';border-radius:50%"></span>Acima do Brasil</span><span><span class="tg-sw" style="background:' + dash.colors[1] + ';border-radius:50%"></span>Abaixo do Brasil</span><span><span class="tg-sw" style="background:var(--cds-chart-muted);border-radius:50%"></span>Diferença dentro da margem de erro</span><span><span class="tg-refkey"></span>Brasil</span>';
+    lg.innerHTML = '<span><span class="tg-sw" style="background:var(--color-positivo);border-radius:50%"></span>Acima do Brasil</span><span><span class="tg-sw" style="background:var(--color-negativo);border-radius:50%"></span>Abaixo do Brasil</span><span><span class="tg-sw" style="background:var(--cds-chart-muted);border-radius:50%"></span>Diferença dentro da margem de erro</span><span><span class="tg-refkey"></span>Brasil</span>';
     w.append(lg); el.replaceChildren(w);
   };
 
