@@ -1,4 +1,4 @@
-# Escolas e Gestores em Dados
+# EducaDados
 
 Painel interativo com os dados de **gestores escolares** e **escolas** da pesquisa
 **TIC Educação 2025** (NIC.br/Cetic.br), feito como produto da dissertação
@@ -12,6 +12,7 @@ leitura confortável no celular.
 
 ## O que tem no painel
 
+- **Início**: apresentação do site com os principais números de gestores e de escolas.
 - **Gestores**: perfil (sexo, idade, cor ou raça, formação, tempo no cargo), tecnologia na
   rotina da gestão e uso de inteligência artificial.
 - **Escolas**: camadas de acesso à internet, tipo e velocidade da conexão, problemas de

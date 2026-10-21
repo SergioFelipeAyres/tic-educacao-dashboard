@@ -346,23 +346,39 @@
     w.append(lg); el.replaceChildren(w);
   };
 
-  // ---------- view (tab) ----------
-  let view = location.hash.slice(1) === 'escolas' ? 'escolas' : 'gestores';
+  // ---------- view (navbar) ----------
+  const VIEWS = ['inicio', 'gestores', 'escolas'];
+  // a hash can name a view or any section inside one (e.g. #ia, #conexao, #comparar)
+  const viewFromHash = () => {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (!h || VIEWS.includes(h)) return h || 'inicio';
+    const el = document.getElementById(h);
+    if (!el) return 'inicio';
+    return document.getElementById('escolas').contains(el) ? 'escolas' : document.getElementById('inicio').contains(el) ? 'inicio' : 'gestores';
+  };
+  let view = viewFromHash();
   const firstDraw = { gestores: true, escolas: true };
-  const tabs = [...document.querySelectorAll('.tg-tab')];
+  const navLinks = [...document.querySelectorAll('.nav-link[data-view]')];
+  const showView = (v) => {
+    navLinks.forEach((a) => { if (a.dataset.view === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    VIEWS.forEach((id) => { document.getElementById(id).hidden = v !== id; });
+    document.querySelectorAll('.tg-dash-only').forEach((el) => { el.hidden = v === 'inicio'; });
+  };
   const setView = (v) => {
     view = v;
     const cur = dash.params().recorte || TOTAL;
-    tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === v)));
-    document.getElementById('gestores').hidden = v !== 'gestores';
-    document.getElementById('escolas').hidden = v !== 'escolas';
-    dash.setLink(v);
+    showView(v);
     if (SEGS[v] && !SEGS[v].includes(cur)) {
       resetNote = 'O recorte "' + recName(cur) + '" só existe para gestores. Voltamos para Brasil; escolha um recorte de escolas.';
       dash.setParams({ recorte: TOTAL });
     } else draw();
   };
-  tabs.forEach((t) => t.addEventListener('click', () => setView(t.dataset.view)));
+  window.addEventListener('hashchange', () => {
+    const h = location.hash.slice(1);
+    setView(viewFromHash());
+    const el = !VIEWS.includes(h) && document.getElementById(h);
+    if (el) el.scrollIntoView(); else window.scrollTo(0, 0);
+  });
 
   // ---------- controls ----------
   const sel = document.getElementById('tg-recorte');
@@ -657,13 +673,34 @@
     w.append(lg); el.replaceChildren(w);
   };
 
+  // ---------- page: início ----------
+  const drawHome = () => {
+    document.querySelectorAll('#inicio [data-calc]').forEach((el) => {
+      const t = dash.data(el.dataset.calc);
+      if (t.status !== 'ok') return;
+      const row = t.data.find((x) => x.recorte === TOTAL);
+      el.classList.remove('dash-skeleton');
+      el.textContent = row ? nfc.format(row.total) : '—';
+    });
+    document.querySelectorAll('#inicio .tg-door-stat').forEach((k, i) => {
+      const ds = k.dataset.ds;
+      if (dash.data(ds).status !== 'ok') return;
+      const row = get(k.dataset.ind, k.dataset.grupo, k.dataset.resp, TOTAL, ds);
+      const num = k.querySelector('.tg-kpi-num'), svg = k.querySelector('svg');
+      num.classList.remove('dash-skeleton');
+      if (!row) { num.textContent = '—'; svg.innerHTML = ''; return; }
+      num.textContent = pct(row.pct); markRow(num, row);
+      iso10(svg, row.pct, dash.colors[0], 'home' + i, ds === 'escolas' ? SCHOOL : P);
+    });
+  };
+
   // ---------- main draw ----------
   const TITLES = { gestores: 'Quem dirige as escolas brasileiras e como usa a tecnologia', escolas: 'Como as escolas brasileiras estão conectadas e equipadas' };
   function draw() {
     const params = dash.params();
     const meta = dash.data(META);
     const take = document.getElementById('tg-take');
-    document.getElementById('tg-h1').textContent = TITLES[view];
+    if (TITLES[view]) document.getElementById('tg-h1').textContent = TITLES[view];
 
     document.querySelectorAll('.tg-base[data-ind]').forEach((p) => {
       p.setAttribute('data-source', META);
@@ -682,6 +719,7 @@
     const kpis = [...document.querySelectorAll('#' + view + ' .tg-kpi[data-ind]')];
 
     if (g.status === 'ok' && e.status === 'ok') buildControls();
+    if (view === 'inicio') { drawHome(); return; }
     buildSelect(view);
     let rec = params.recorte || TOTAL;
     if (SEGS[view] && !SEGS[view].includes(rec)) rec = TOTAL;
@@ -750,11 +788,9 @@
     if (view === 'gestores') drawGestores(recEff, anim); else drawEscolas(recEff, anim);
   }
 
-  tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.view === view)));
-  document.getElementById('gestores').hidden = view !== 'gestores';
-  document.getElementById('escolas').hidden = view !== 'escolas';
+  showView(view);
   dash.onData(draw);
 
   const named = document.getElementById(location.hash.slice(1));
-  if (named && named.id !== view) setTimeout(() => { named.scrollIntoView(); }, 400);
+  if (named && !VIEWS.includes(named.id)) setTimeout(() => { named.scrollIntoView(); }, 400);
 })();
