@@ -36,6 +36,8 @@
       if (t < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
+    // garantia: se o navegador pausar os quadros (aba em segundo plano), o valor final aparece mesmo assim
+    setTimeout(() => { if (el.__run === id && el.textContent !== el.__final) { el.__last = el.__final; el.textContent = el.__final; } }, delay + DUR + 300);
   };
   const countIn = (scope, delay) => {
     const list = scope.matches && scope.matches(NUMS) ? [scope] : [...scope.querySelectorAll(NUMS)];
