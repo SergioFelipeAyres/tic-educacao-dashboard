@@ -205,6 +205,20 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
 .tg-hero-title span{color:var(--cds-chart-categorical-1);font-weight:600}
 .tg-hero-lead{font-family:var(--font-anthropic-serif);font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.3;max-width:34ch;text-wrap:balance}
 .tg-hero-text{color:var(--color-fg-muted);max-width:62ch}
+.tg-fact{display:flex;gap:var(--cds-gap-lg);align-items:flex-start;padding:1.5rem;border-radius:calc(var(--cds-radius) * 1.4);background:var(--color-panel);border:1px solid var(--color-border-line);border-left:4px solid var(--cds-chart-categorical-1)}
+.tg-fact-ic{display:grid;place-items:center;width:3.5rem;height:3.5rem;flex:none;border-radius:50%;background:var(--cds-chart-grid);color:var(--cds-chart-categorical-1)}
+.tg-fact-ic .tg-ic{width:1.75rem;height:1.75rem}
+.tg-fact-body{display:flex;flex-direction:column;gap:var(--cds-gap-sm);min-width:0;flex:1}
+.tg .tg-fact-eyebrow{font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);letter-spacing:.06em;text-transform:uppercase;color:var(--cds-chart-categorical-1)}
+.tg-fact-txt{font-size:clamp(1.2rem,2.4vw,1.5rem);line-height:1.3;text-wrap:balance;max-width:40ch;min-height:1.3em}
+.tg-fact-txt b{color:var(--cds-chart-categorical-1)}
+.tg-fact .tg-iso10{max-width:16rem}
+.tg-fact-meta{font-size:var(--cds-font-size-caption);color:var(--color-fg-muted)}
+.tg-fact-actions{display:flex;flex-wrap:wrap;align-items:center;gap:var(--cds-gap-md);margin-top:var(--cds-gap-xs)}
+.tg-fact-actions button{display:inline-flex;align-items:center;gap:.4rem}
+.tg-fact-link{font-size:var(--cds-font-size-caption);font-weight:var(--cds-font-weight-medium);color:var(--cds-chart-categorical-1);text-decoration:none}
+.tg-fact-link:hover{text-decoration:underline}
+@media (max-width:520px){.tg-fact{padding:1.15rem;gap:var(--cds-gap-md)}.tg-fact-ic{width:2.75rem;height:2.75rem}.tg-fact-ic .tg-ic{width:1.35rem;height:1.35rem}}
 .tg-doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:var(--cds-gap-lg)}
 .tg-door{display:flex;flex-direction:column;gap:var(--cds-gap-lg);padding:1.5rem;background:var(--color-panel);border:1px solid var(--color-border-line);border-radius:calc(var(--cds-radius) * 1.4);color:inherit;text-decoration:none;transition:border-color var(--cds-dur-slow),box-shadow var(--cds-dur-slow)}
 .tg-door:hover{border-color:var(--cds-chart-categorical-1);box-shadow:var(--cds-shadow-popover)}

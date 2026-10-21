@@ -147,6 +147,30 @@
     { id: 'e_facial', ds: 'escolas', label: 'Escolas com reconhecimento facial dos alunos', ind: 'E4B', grupo: '', resp: 'Sim' }
   ];
 
+  // ---------- "Você sabia?" da tela inicial: frase = "<N em cada 10> <txt>." (txt1: forma no singular) ----------
+  const FACTS = [
+    { ds: 'gestores', ind: 'A1', grupo: '', resp: 'Feminino', icon: 'pessoa', txt: 'gestores escolares são mulheres', card: 'card-sexo' },
+    { ds: 'gestores', ind: 'D9A', grupo: '', resp: 'Sim', icon: 'ia', txt: 'gestores já usam inteligência artificial na gestão da escola', card: 'card-ia-adocao' },
+    { ds: 'gestores', ind: 'A4', grupo: 'Especialização ou pós-graduação', resp: 'Sim', icon: 'livro', txt: 'gestores têm especialização ou pós-graduação', card: 'card-formacao' },
+    { ds: 'gestores', ind: 'A4', grupo: 'Mestrado', resp: 'Sim', icon: 'livro', txt: 'gestores têm mestrado', txt1: 'gestores tem mestrado', card: 'card-formacao' },
+    { ds: 'gestores', ind: 'A2', grupo: '', resp: 'Até 40 anos', icon: 'calendario', txt: 'gestores têm até 40 anos', card: 'card-idade' },
+    { ds: 'gestores', ind: 'D2', grupo: '', resp: 'Há mais de 10 anos', icon: 'calendario', txt: 'gestores estão há mais de 10 anos na direção da escola', card: 'card-tempo' },
+    { ds: 'gestores', ind: 'D3_1', grupo: '', resp: 'Sim', icon: 'balao', txt: 'gestores reuniram professores para falar de tecnologia no último ano', card: 'card-reunioes' },
+    { ds: 'gestores', ind: 'D6', grupo: '', resp: 'Sim', icon: 'balao', txt: 'gestores reuniram as famílias para falar de tecnologia no último ano', card: 'card-reunioes' },
+    { ds: 'escolas', ind: 'A1', grupo: '', resp: 'Sim', icon: 'radio', txt: 'escolas têm acesso à internet', card: 'card-camadas' },
+    { ds: 'escolas', ind: 'A7', grupo: '', resp: 'Sim', icon: 'pessoa', txt: 'escolas oferecem internet para os alunos', card: 'card-camadas' },
+    { ds: 'escolas', ind: 'A8', grupo: '', resp: 'Sim', icon: 'notebook', txt: 'escolas oferecem computador e internet para os alunos', card: 'card-camadas' },
+    { ds: 'escolas', ind: 'A2', grupo: '', resp: 'Conexão via fibra ótica', icon: 'fibra', txt: 'escolas com internet estão conectadas por fibra ótica', card: 'card-tipo-conexao' },
+    { ds: 'escolas', ind: 'B15', grupo: '', resp: 'Sim', icon: 'robo', txt: 'escolas têm material para aulas de robótica', card: 'card-recursos' },
+    { ds: 'escolas', ind: 'C3C', grupo: '', resp: 'Sim', icon: 'celular', txt: 'escolas têm regras para o uso do celular pelos alunos', card: 'card-politicas' },
+    { ds: 'escolas', ind: 'E5A', grupo: '', resp: 'Sim', icon: 'ia', txt: 'escolas têm um guia sobre o uso de inteligência artificial', card: 'card-politicas' },
+    { ds: 'escolas', ind: 'E5B', grupo: '', resp: 'Sim', icon: 'ia', txt: 'escolas permitem que os alunos usem inteligência artificial', card: 'card-politicas' },
+    { ds: 'escolas', ind: 'H1', grupo: '', resp: 'Sim', icon: 'cadeado', txt: 'escolas têm política de proteção de dados', card: 'card-politicas' },
+    { ds: 'escolas', ind: 'E4B', grupo: '', resp: 'Sim', icon: 'rosto', txt: 'escolas usam reconhecimento facial dos alunos', card: 'card-vigilancia' },
+    { ds: 'escolas', ind: 'F3', grupo: 'Instagram', resp: 'Sim', icon: 'rede', txt: 'escolas têm perfil no Instagram', card: 'card-redes' },
+    { ds: 'escolas', ind: 'F4A', grupo: 'WhatsApp', resp: 'Sim', icon: 'whatsapp', txt: 'escolas usam o WhatsApp para se comunicar', card: 'card-canais' }
+  ];
+
   dash.calc('total_recorte', {
     inputs: ['gestores'], title: 'Gestores por recorte',
     description: 'Soma das estimativas de gestoras e gestores (tabela A1 de gestores, totais) em cada recorte.',
@@ -674,7 +698,30 @@
   };
 
   // ---------- page: início ----------
+  let factIdx = Math.floor(Math.random() * FACTS.length);
+  const drawFact = () => {
+    const f = FACTS[factIdx], txt = document.getElementById('fato-txt');
+    if (dash.data(f.ds).status !== 'ok') return;
+    const row = get(f.ind, f.grupo, f.resp, TOTAL, f.ds);
+    if (!row) { factIdx = (factIdx + 1) % FACTS.length; return drawFact(); }
+    document.getElementById('fato-ic').innerHTML = ic(f.icon);
+    txt.classList.remove('dash-skeleton'); txt.replaceChildren();
+    const b = document.createElement('b'); b.textContent = freqTxt(row.pct);
+    // com "1 em cada 10" o verbo vai para o singular
+    txt.append(b, document.createTextNode(' ' + (f.txt1 && b.textContent.startsWith('1 em') ? f.txt1 : f.txt) + '.'));
+    iso10(document.getElementById('fato-iso'), row.pct, dash.colors[0], 'fato', f.ds === 'escolas' ? SCHOOL : P);
+    const meta = dash.data(META), m = meta.status === 'ok' && meta.data.find((x) => x.ind === f.ind && x.publico === f.ds);
+    document.getElementById('fato-meta').textContent = pct(row.pct) + (row.moe ? ' (margem de erro ' + pp(row.moe) + ')' : '') +
+      (m ? ' · Base: ' + m.universo.toLowerCase().replace(/^total de /, '') : '');
+    document.getElementById('fato-link').href = '#' + f.card;
+  };
+  document.getElementById('fato-outro').addEventListener('click', () => {
+    factIdx = (factIdx + 1 + Math.floor(Math.random() * (FACTS.length - 1))) % FACTS.length;
+    drawFact();
+  });
+
   const drawHome = () => {
+    drawFact();
     document.querySelectorAll('#inicio [data-calc]').forEach((el) => {
       const t = dash.data(el.dataset.calc);
       if (t.status !== 'ok') return;
