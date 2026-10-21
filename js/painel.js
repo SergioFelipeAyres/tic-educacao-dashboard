@@ -424,15 +424,15 @@
       if (!f || !m) return emptyMsg(el, NODATA);
       const [cf, cm] = counts100([f.pct, m.pct]);
       const w = document.createElement('div'); w.className = 'tg-isowrap';
-      w.innerHTML = iso100([{ count: cf, color: dash.colors[0] }, { count: cm, color: dash.colors[1] }], anim);
+      w.innerHTML = iso100([{ count: cf, color: 'var(--color-mulheres)' }, { count: cm, color: 'var(--color-homens)' }], anim);
       const say = document.createElement('div'); say.className = 'tg-say';
       const b = document.createElement('b'); b.textContent = freqTxt(f.pct);
       const sf = document.createElement('span'); sf.textContent = pct(f.pct); markRow(sf, f);
       const sm = document.createElement('span'); sm.textContent = pct(m.pct); markRow(sm, m);
       say.append(b, document.createTextNode(' gestores são mulheres.'));
       const lg = document.createElement('div'); lg.className = 'tg-legend'; lg.style.marginTop = 'var(--cds-gap-sm)';
-      const l1 = document.createElement('span'); l1.innerHTML = '<span class="tg-sw" style="background:' + dash.colors[0] + '"></span>Mulheres '; l1.append(sf);
-      const l2 = document.createElement('span'); l2.innerHTML = '<span class="tg-sw" style="background:' + dash.colors[1] + '"></span>Homens '; l2.append(sm);
+      const l1 = document.createElement('span'); l1.innerHTML = '<span class="tg-sw" style="background:var(--color-mulheres)"></span>Mulheres '; l1.append(sf);
+      const l2 = document.createElement('span'); l2.innerHTML = '<span class="tg-sw" style="background:var(--color-homens)"></span>Homens '; l2.append(sm);
       lg.append(l1, l2); say.append(lg);
       const brf = get('A1', '', 'Feminino', TOTAL);
       if (rec !== TOTAL && brf) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.style.marginTop = 'var(--cds-gap-xs)'; p.textContent = 'Brasil: ' + pct(brf.pct) + ' mulheres'; say.append(p); }
@@ -690,7 +690,7 @@
       num.classList.remove('dash-skeleton');
       if (!row) { num.textContent = '—'; svg.innerHTML = ''; return; }
       num.textContent = pct(row.pct); markRow(num, row);
-      iso10(svg, row.pct, dash.colors[0], 'home' + i, ds === 'escolas' ? SCHOOL : P);
+      iso10(svg, row.pct, k.dataset.color || dash.colors[0], 'home' + i, ds === 'escolas' ? SCHOOL : P);
     });
   };
 
@@ -781,7 +781,7 @@
       num.classList.remove('dash-skeleton');
       if (!row) { num.textContent = '—'; unmark(num); svg.innerHTML = ''; cmp.textContent = 'Sem dados para este recorte'; return; }
       num.textContent = pct(row.pct); markRow(num, row);
-      iso10(svg, row.pct, dash.colors[0], view + 'k' + i, view === 'escolas' ? SCHOOL : P);
+      iso10(svg, row.pct, k.dataset.color || dash.colors[0], view + 'k' + i, view === 'escolas' ? SCHOOL : P);
       cmp.textContent = freqTxt(row.pct) + (recEff !== TOTAL && br ? ' · Brasil: ' + pct(br.pct) : '') + (row.moe ? ' · ' + pp(row.moe) : '');
     });
 
