@@ -23,8 +23,8 @@
     </a>
     <nav class="nav-links" aria-label="Seções do site">
       <a class="nav-link" href="#inicio" data-view="inicio"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11L12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/></svg>Início</a>
-      <a class="nav-link" href="#gestores" data-view="gestores"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>Gestores</a>
       <a class="nav-link" href="#escolas" data-view="escolas"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5L2.5 8.5h19z"/><path d="M4.5 9.5h15V21h-5.5v-5h-4v5H4.5z"/></svg>Escolas</a>
+      <a class="nav-link" href="#gestores" data-view="gestores"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>Gestores</a>
       <a class="nav-link" href="#sobre" data-view="sobre"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.5h.01"/></svg>Sobre</a>
     </nav>
     <button type="button" class="nav-tema" id="nav-tema" aria-label="Mudar o tema">
@@ -53,32 +53,12 @@
         <p class="tg-fact-meta" id="fato-meta"></p>
         <div class="tg-fact-actions">
           <button type="button" id="fato-outro"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4.5h-4.5"/></svg>Outro dado</button>
-          <a class="tg-fact-link" id="fato-link" href="#gestores">Ver no painel <span aria-hidden="true">→</span></a>
+          <a class="tg-fact-link" id="fato-link" href="#escolas">Ver no painel <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
     <section class="tg-doors" aria-label="Escolha o que explorar">
-      <a class="tg-door" href="#gestores">
-        <div class="tg-door-head">
-          <span class="tg-door-ic"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg></span>
-          <div><h2 class="tg-door-title">Gestores</h2><p class="tg-door-sub">Cerca de <span class="dash-skeleton" data-calc="total_recorte">—</span> diretores e diretoras de escola</p></div>
-        </div>
-        <p class="tg-door-text">Quem está na direção das escolas, como a tecnologia entra na rotina da gestão e quem já usa inteligência artificial.</p>
-        <div class="tg-door-stats">
-          <div class="tg-door-stat" data-color="var(--color-mulheres)" data-ds="gestores" data-ind="A1" data-grupo="" data-resp="Feminino">
-            <div class="tg-kpi-num dash-skeleton">—</div>
-            <svg class="tg-iso10" width="100%" viewBox="0 0 240 26" role="img"></svg>
-            <div class="tg-door-lab">são mulheres</div>
-          </div>
-          <div class="tg-door-stat" data-ds="gestores" data-ind="D9A" data-grupo="" data-resp="Sim">
-            <div class="tg-kpi-num dash-skeleton">—</div>
-            <svg class="tg-iso10" width="100%" viewBox="0 0 240 26" role="img"></svg>
-            <div class="tg-door-lab">usam IA na gestão</div>
-          </div>
-        </div>
-        <span class="tg-door-cta">Explorar gestores <span aria-hidden="true">→</span></span>
-      </a>
       <a class="tg-door" href="#escolas">
         <div class="tg-door-head">
           <span class="tg-door-ic"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5L2.5 8.5h19z"/><path d="M4.5 9.5h15V21h-5.5v-5h-4v5H4.5z"/></svg></span>
@@ -98,6 +78,26 @@
           </div>
         </div>
         <span class="tg-door-cta">Explorar escolas <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="tg-door" href="#gestores">
+        <div class="tg-door-head">
+          <span class="tg-door-ic"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg></span>
+          <div><h2 class="tg-door-title">Gestores</h2><p class="tg-door-sub">Cerca de <span class="dash-skeleton" data-calc="total_recorte">—</span> diretores e diretoras de escola</p></div>
+        </div>
+        <p class="tg-door-text">Quem está na direção das escolas, como a tecnologia entra na rotina da gestão e quem já usa inteligência artificial.</p>
+        <div class="tg-door-stats">
+          <div class="tg-door-stat" data-color="var(--color-mulheres)" data-ds="gestores" data-ind="A1" data-grupo="" data-resp="Feminino">
+            <div class="tg-kpi-num dash-skeleton">—</div>
+            <svg class="tg-iso10" width="100%" viewBox="0 0 240 26" role="img"></svg>
+            <div class="tg-door-lab">são mulheres</div>
+          </div>
+          <div class="tg-door-stat" data-ds="gestores" data-ind="D9A" data-grupo="" data-resp="Sim">
+            <div class="tg-kpi-num dash-skeleton">—</div>
+            <svg class="tg-iso10" width="100%" viewBox="0 0 240 26" role="img"></svg>
+            <div class="tg-door-lab">usam IA na gestão</div>
+          </div>
+        </div>
+        <span class="tg-door-cta">Explorar gestores <span aria-hidden="true">→</span></span>
       </a>
     </section>
 
@@ -131,8 +131,8 @@
         <div class="tg-about-head"><span class="tg-door-ic"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16"/><path d="M7 16v-5M12 16V7M17 16v-8"/></svg></span><h2 class="tg-card-title">Os dados</h2></div>
         <p>Todos os números vêm da <b>Pesquisa TIC Educação 2025</b>, feita pelo Núcleo de Informação e Coordenação do Ponto BR (NIC.br), por meio do Cetic.br. O painel usa as tabelas publicadas (versão 1.0) de dois públicos:</p>
         <ul>
-          <li><b>Gestores escolares</b>: perfil de quem dirige a escola, tecnologia na rotina da gestão e uso de inteligência artificial.</li>
           <li><b>Escolas</b> de Ensino Fundamental e Médio: conexão, equipamentos, regras, proteção de dados e comunicação.</li>
+          <li><b>Gestores escolares</b>: perfil de quem dirige a escola, tecnologia na rotina da gestão e uso de inteligência artificial.</li>
         </ul>
         <p>São proporções, margens de erro e totais estimados a partir de uma amostra. Recortes cruzados, como escolas particulares do Sudeste, não existem nas tabelas publicadas.</p>
         <a class="tg-fact-link" href="https://cetic.br/pt/pesquisa/educacao/" rel="noopener">Conheça a pesquisa no Cetic.br <span aria-hidden="true">→</span></a>
@@ -189,74 +189,6 @@
     <select id="tg-recorte" aria-label="Recorte dos dados"></select>
     <button type="button" id="tg-reset">Voltar para Brasil</button>
     <p class="tg-filter-note" id="tg-filter-note">Escolha uma região, rede, porte ou perfil. Todos os gráficos mudam juntos.</p>
-  </div>
-
-  <!-- ===================== GESTORES ===================== -->
-  <div class="tg-page" id="gestores" aria-label="Gestores">
-    <section class="tg-kpis" id="destaques-gestores" aria-label="Destaques dos gestores">
-      <div class="tg-kpi" id="kpi-total">
-        <div class="tg-kpi-label">Gestores representados</div>
-        <div class="tg-kpi-num dash-skeleton tg-total" data-calc="total_recorte">—</div>
-        <div class="tg-kpi-cmp tg-total-cmp">Estimativa para escolas de Ensino Fundamental e Médio</div>
-      </div>
-      <div class="tg-kpi" id="kpi-mulheres" data-color="var(--color-mulheres)" data-ind="A1" data-grupo="" data-resp="Feminino">
-        <div class="tg-kpi-label">São mulheres</div>
-        <div class="tg-kpi-num dash-skeleton">—</div>
-        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
-        <div class="tg-kpi-cmp"></div>
-      </div>
-      <div class="tg-kpi" id="kpi-pos" data-ind="A4" data-grupo="Especialização ou pós-graduação" data-resp="Sim">
-        <div class="tg-kpi-label">Têm especialização ou pós</div>
-        <div class="tg-kpi-num dash-skeleton">—</div>
-        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
-        <div class="tg-kpi-cmp"></div>
-      </div>
-      <div class="tg-kpi" id="kpi-reuniao" data-ind="D3_1" data-grupo="" data-resp="Sim">
-        <div class="tg-kpi-label">Reuniram professores sobre tecnologia</div>
-        <div class="tg-kpi-num dash-skeleton">—</div>
-        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
-        <div class="tg-kpi-cmp"></div>
-      </div>
-      <div class="tg-kpi" id="kpi-ia" data-ind="D9A" data-grupo="" data-resp="Sim">
-        <div class="tg-kpi-label">Usam inteligência artificial na gestão</div>
-        <div class="tg-kpi-num dash-skeleton">—</div>
-        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
-        <div class="tg-kpi-cmp"></div>
-      </div>
-    </section>
-
-    <section class="tg-sec" id="perfil">
-      <div class="tg-sec-head"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>
-        <div><h2 class="tg-sec-title">Quem são os gestores</h2><p class="tg-sec-sub">Perfil de quem está na direção das escolas: sexo, idade, cor ou raça, formação e experiência no cargo.</p></div></div>
-      <div class="tg-grid">
-        <article class="tg-card" id="card-sexo"><h3 class="tg-card-title">Sexo</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-sexo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A1"></p></article>
-        <article class="tg-card" id="card-idade"><h3 class="tg-card-title">Idade</h3><p class="tg-card-note">Faixas em ordem, do tom mais claro (mais jovens) ao mais escuro.</p><div class="tg-chart" id="ch-idade" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A2"></p></article>
-        <article class="tg-card" id="card-raca"><h3 class="tg-card-title">Cor ou raça</h3><p class="tg-card-note">Autodeclaração, nas categorias do IBGE.</p><div class="tg-chart" id="ch-raca" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A3"></p></article>
-        <article class="tg-card" id="card-formacao"><h3 class="tg-card-title">Formação além da graduação</h3><p class="tg-card-note">Cada barra mostra quantos têm aquele nível concluído.</p><div class="tg-chart" id="ch-formacao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A4"></p></article>
-        <article class="tg-card" id="card-tempo"><h3 class="tg-card-title">Tempo na direção da escola</h3><p class="tg-card-note">Do tom mais claro (recém-chegados) ao mais escuro (mais de 10 anos).</p><div class="tg-chart" id="ch-tempo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D2"></p></article>
-        <article class="tg-card" id="card-funcao"><h3 class="tg-card-title">Quem dirige as escolas rurais</h3><p class="tg-card-note">Função de quem responde pela direção. Só existe para escolas rurais.</p><div class="tg-chart" id="ch-funcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D1"></p></article>
-      </div>
-    </section>
-
-    <section class="tg-sec" id="tecnologia">
-      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg>
-        <div><h2 class="tg-sec-title">Tecnologia na rotina da gestão</h2><p class="tg-sec-sub">Se a direção conversa sobre tecnologia com a equipe e as famílias, sobre o quê, e como avalia sua integração ao ensino. Base: gestores de escolas com acesso à internet.</p></div></div>
-      <div class="tg-grid">
-        <article class="tg-card" id="card-reunioes"><h3 class="tg-card-title">Reuniões sobre tecnologia nos últimos 12 meses</h3><p class="tg-card-note">Cada figura representa 10% dos gestores.</p><div class="tg-chart" id="ch-reunioes" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D3_1"></p></article>
-        <article class="tg-card" id="card-temas"><h3 class="tg-card-title">Temas discutidos nessas reuniões</h3><p class="tg-card-note">Do tema mais citado ao menos citado.</p><div class="tg-chart" id="ch-temas" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D7"></p></article>
-        <article class="tg-card tg-wide" id="card-percepcao"><h3 class="tg-card-title">A tecnologia está integrada ao ensino?</h3><p class="tg-card-note">Quanto os gestores concordam com cada afirmação, da mais aceita para a menos aceita.</p><div class="tg-chart" id="ch-percepcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D8"></p></article>
-      </div>
-    </section>
-
-    <section class="tg-sec" id="ia">
-      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4-6.4-2.1 6.4-2.1z"/><path d="M19 17v4M17 19h4"/></svg>
-        <div><h2 class="tg-sec-title">Inteligência artificial na gestão</h2><p class="tg-sec-sub">Pela primeira vez a pesquisa pergunta se a direção usa IA em tarefas pedagógicas, administrativas ou financeiras.</p></div></div>
-      <div class="tg-grid">
-        <article class="tg-card" id="card-ia-adocao"><h3 class="tg-card-title">Quantos já usam IA</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-ia" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9A"></p></article>
-        <article class="tg-card" id="card-ia-usos"><h3 class="tg-card-title">Para que usam a IA</h3><p class="tg-card-note">Entre quem já usa IA na gestão.</p><div class="tg-chart" id="ch-ia-usos" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9B"></p></article>
-        <article class="tg-card" id="card-ia-contrib"><h3 class="tg-card-title">Onde a IA ajudou</h3><p class="tg-card-note">Áreas em que os gestores dizem que a IA contribuiu.</p><div class="tg-chart" id="ch-ia-contrib" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9C"></p></article>
-      </div>
-    </section>
   </div>
 
   <!-- ===================== ESCOLAS ===================== -->
@@ -331,6 +263,74 @@
       <div class="tg-grid">
         <article class="tg-card" id="card-redes"><h3 class="tg-card-title">Redes sociais da escola</h3><p class="tg-card-note">Entre todas as escolas.</p><div class="tg-chart" id="ch-redes" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="F3"></p></article>
         <article class="tg-card" id="card-canais"><h3 class="tg-card-title">Mensagens, aplicativos e plataformas</h3><p class="tg-card-note">Entre todas as escolas.</p><div class="tg-chart" id="ch-canais" data-source="escolas"></div><p class="tg-base" data-pub="escolas" data-ind="F4A"></p></article>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===================== GESTORES ===================== -->
+  <div class="tg-page" id="gestores" aria-label="Gestores">
+    <section class="tg-kpis" id="destaques-gestores" aria-label="Destaques dos gestores">
+      <div class="tg-kpi" id="kpi-total">
+        <div class="tg-kpi-label">Gestores representados</div>
+        <div class="tg-kpi-num dash-skeleton tg-total" data-calc="total_recorte">—</div>
+        <div class="tg-kpi-cmp tg-total-cmp">Estimativa para escolas de Ensino Fundamental e Médio</div>
+      </div>
+      <div class="tg-kpi" id="kpi-mulheres" data-color="var(--color-mulheres)" data-ind="A1" data-grupo="" data-resp="Feminino">
+        <div class="tg-kpi-label">São mulheres</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-pos" data-ind="A4" data-grupo="Especialização ou pós-graduação" data-resp="Sim">
+        <div class="tg-kpi-label">Têm especialização ou pós</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-reuniao" data-ind="D3_1" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Reuniram professores sobre tecnologia</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+      <div class="tg-kpi" id="kpi-ia" data-ind="D9A" data-grupo="" data-resp="Sim">
+        <div class="tg-kpi-label">Usam inteligência artificial na gestão</div>
+        <div class="tg-kpi-num dash-skeleton">—</div>
+        <svg class="tg-iso10" data-source="gestores" width="100%" viewBox="0 0 240 26" role="img"></svg>
+        <div class="tg-kpi-cmp"></div>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="perfil">
+      <div class="tg-sec-head"><svg class="tg-ic tg-solid" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg>
+        <div><h2 class="tg-sec-title">Quem são os gestores</h2><p class="tg-sec-sub">Perfil de quem está na direção das escolas: sexo, idade, cor ou raça, formação e experiência no cargo.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-sexo"><h3 class="tg-card-title">Sexo</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-sexo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A1"></p></article>
+        <article class="tg-card" id="card-idade"><h3 class="tg-card-title">Idade</h3><p class="tg-card-note">Faixas em ordem, do tom mais claro (mais jovens) ao mais escuro.</p><div class="tg-chart" id="ch-idade" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A2"></p></article>
+        <article class="tg-card" id="card-raca"><h3 class="tg-card-title">Cor ou raça</h3><p class="tg-card-note">Autodeclaração, nas categorias do IBGE.</p><div class="tg-chart" id="ch-raca" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A3"></p></article>
+        <article class="tg-card" id="card-formacao"><h3 class="tg-card-title">Formação além da graduação</h3><p class="tg-card-note">Cada barra mostra quantos têm aquele nível concluído.</p><div class="tg-chart" id="ch-formacao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="A4"></p></article>
+        <article class="tg-card" id="card-tempo"><h3 class="tg-card-title">Tempo na direção da escola</h3><p class="tg-card-note">Do tom mais claro (recém-chegados) ao mais escuro (mais de 10 anos).</p><div class="tg-chart" id="ch-tempo" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D2"></p></article>
+        <article class="tg-card" id="card-funcao"><h3 class="tg-card-title">Quem dirige as escolas rurais</h3><p class="tg-card-note">Função de quem responde pela direção. Só existe para escolas rurais.</p><div class="tg-chart" id="ch-funcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D1"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="tecnologia">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg>
+        <div><h2 class="tg-sec-title">Tecnologia na rotina da gestão</h2><p class="tg-sec-sub">Se a direção conversa sobre tecnologia com a equipe e as famílias, sobre o quê, e como avalia sua integração ao ensino. Base: gestores de escolas com acesso à internet.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-reunioes"><h3 class="tg-card-title">Reuniões sobre tecnologia nos últimos 12 meses</h3><p class="tg-card-note">Cada figura representa 10% dos gestores.</p><div class="tg-chart" id="ch-reunioes" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D3_1"></p></article>
+        <article class="tg-card" id="card-temas"><h3 class="tg-card-title">Temas discutidos nessas reuniões</h3><p class="tg-card-note">Do tema mais citado ao menos citado.</p><div class="tg-chart" id="ch-temas" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D7"></p></article>
+        <article class="tg-card tg-wide" id="card-percepcao"><h3 class="tg-card-title">A tecnologia está integrada ao ensino?</h3><p class="tg-card-note">Quanto os gestores concordam com cada afirmação, da mais aceita para a menos aceita.</p><div class="tg-chart" id="ch-percepcao" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D8"></p></article>
+      </div>
+    </section>
+
+    <section class="tg-sec" id="ia">
+      <div class="tg-sec-head"><svg class="tg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4-6.4-2.1 6.4-2.1z"/><path d="M19 17v4M17 19h4"/></svg>
+        <div><h2 class="tg-sec-title">Inteligência artificial na gestão</h2><p class="tg-sec-sub">Pela primeira vez a pesquisa pergunta se a direção usa IA em tarefas pedagógicas, administrativas ou financeiras.</p></div></div>
+      <div class="tg-grid">
+        <article class="tg-card" id="card-ia-adocao"><h3 class="tg-card-title">Quantos já usam IA</h3><p class="tg-card-note">Cada figura representa 1% dos gestores.</p><div class="tg-chart" id="ch-ia" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9A"></p></article>
+        <article class="tg-card" id="card-ia-usos"><h3 class="tg-card-title">Para que usam a IA</h3><p class="tg-card-note">Entre quem já usa IA na gestão.</p><div class="tg-chart" id="ch-ia-usos" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9B"></p></article>
+        <article class="tg-card" id="card-ia-contrib"><h3 class="tg-card-title">Onde a IA ajudou</h3><p class="tg-card-note">Áreas em que os gestores dizem que a IA contribuiu.</p><div class="tg-chart" id="ch-ia-contrib" data-source="gestores"></div><p class="tg-base" data-pub="gestores" data-ind="D9C"></p></article>
       </div>
     </section>
   </div>
@@ -411,8 +411,8 @@
       <article class="tg-card tg-lesson">
         <div class="tg-lesson-vis" aria-hidden="true">
           <div class="tg-lesson-who">
-            <div><svg class="tg-ic tg-solid" viewBox="0 0 24 24"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg><span>Gestores</span></div>
             <div><svg class="tg-ic tg-solid" viewBox="0 0 24 24"><path d="M12 2.5L2.5 8.5h19z"/><path d="M4.5 9.5h15V21h-5.5v-5h-4v5H4.5z"/></svg><span>Escolas</span></div>
+            <div><svg class="tg-ic tg-solid" viewBox="0 0 24 24"><circle cx="12" cy="5.6" r="3.4"/><path d="M5.5 22v-6.5a6.5 6.5 0 0 1 13 0V22z"/></svg><span>Gestores</span></div>
           </div>
         </div>
         <h3 class="tg-card-title"><span class="tg-lesson-n">5</span>Pessoa ou prédio?</h3>

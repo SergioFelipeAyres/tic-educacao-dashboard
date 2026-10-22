@@ -372,15 +372,15 @@
   };
 
   // ---------- view (navbar) ----------
-  const VIEWS = ['inicio', 'gestores', 'escolas', 'sobre'];
-  const DASH = ['gestores', 'escolas'];
+  const VIEWS = ['inicio', 'escolas', 'gestores', 'sobre'];
+  const DASH = ['escolas', 'gestores'];
   // a hash can name a view or any section inside one (e.g. #ia, #conexao, #comparar)
   const viewFromHash = () => {
     const h = decodeURIComponent(location.hash.slice(1));
     if (!h || VIEWS.includes(h)) return h || 'inicio';
     const el = document.getElementById(h);
     if (!el) return 'inicio';
-    return VIEWS.find((v) => v !== 'gestores' && document.getElementById(v).contains(el)) || 'gestores';
+    return VIEWS.find((v) => v !== 'escolas' && document.getElementById(v).contains(el)) || 'escolas';
   };
   let view = viewFromHash();
   const firstDraw = { gestores: true, escolas: true };
@@ -436,7 +436,7 @@
   let resetNote = '';
   const buildControls = () => {
     if (built) return; built = true;
-    for (const [ds, name] of [['gestores', 'Gestores'], ['escolas', 'Escolas']]) {
+    for (const [ds, name] of [['escolas', 'Escolas'], ['gestores', 'Gestores']]) {
       const og = document.createElement('optgroup'); og.label = name;
       MEAS.filter((m) => m.ds === ds).forEach((m) => og.append(new Option(m.label, m.id)));
       ci.append(og);

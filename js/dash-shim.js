@@ -5,7 +5,7 @@
  */
 (function () {
   var SOURCES = { gestores: 'data/gestores.json', escolas: 'data/escolas.json', indicadores: 'data/indicadores.json' };
-  var DEFAULTS = { recorte: 'TOTAL|Total', cmp_ind: 'ia', cmp_cat: 'REGIÃO' };
+  var DEFAULTS = { recorte: 'TOTAL|Total', cmp_ind: 'e_internet', cmp_cat: 'REGIÃO' };
   var store = {}, calcs = {}, calcCache = {}, callbacks = [], params = Object.assign({}, DEFAULTS);
 
   function run() {

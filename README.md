@@ -13,11 +13,11 @@ leitura confortável no celular.
 ## O que tem no painel
 
 - **Início**: apresentação do site com os principais números de gestores e de escolas.
-- **Gestores**: perfil (sexo, idade, cor ou raça, formação, tempo no cargo), tecnologia na
-  rotina da gestão e uso de inteligência artificial.
 - **Escolas**: camadas de acesso à internet, tipo e velocidade da conexão, problemas de
   conexão, equipamentos, regras sobre celular e IA, proteção de dados, câmeras e biometria,
   redes sociais e plataformas.
+- **Gestores**: perfil (sexo, idade, cor ou raça, formação, tempo no cargo), tecnologia na
+  rotina da gestão e uso de inteligência artificial.
 - **Sobre**: o projeto, a pesquisa, os princípios de design, autoria e como citar.
 - **Filtro de recorte** (região, área, rede, porte etc.) e **comparação entre grupos** com
   margem de erro.
