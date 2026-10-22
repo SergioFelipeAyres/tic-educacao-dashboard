@@ -209,6 +209,39 @@
     el.setAttribute('data-source', row._ds); el.setAttribute('data-field', field); el.setAttribute('data-where', 'key=' + enc(row.key));
   };
   const unmark = (el) => { el.removeAttribute('data-field'); el.removeAttribute('data-where'); };
+
+  // ---------- 0% ou 100% sem margem de erro ----------
+  // Quando ninguém da amostra de um grupo respondeu de outro jeito, a tabela traz 0% ou 100% com margem 0:
+  // a margem não pôde ser estimada e o valor real pode ser um pouco diferente. Não marcamos os casos em que
+  // o próprio recorte define a resposta (ex.: no recorte "Sexo: Feminino", 100% são mulheres por definição).
+  const DEFINE_G = { A1: 'SEXO', A2: 'FAIXA ETÁRIA', A3: 'COR OU RAÇA' };
+  const definitional = (r) => (r._ds === 'gestores' && DEFINE_G[r.ind] === r.cat) ||
+    (r._ds === 'escolas' && r.cat === 'ESCOLA COM INTERNET E COMPUTADOR PARA USO DOS ALUNOS' && ['A1', 'A6', 'A7', 'A8'].includes(r.ind));
+  const noMoe = (r) => !!r && r.moe === 0 && (r.pct === 0 || r.pct === 100) && !definitional(r);
+  const noMoeTxt = (ds, short) => short
+    ? '* Margem de erro não estimada: ninguém da amostra deste grupo respondeu de outro jeito.'
+    : '* ' + (ds === 'escolas' ? 'Nenhuma escola' : 'Nenhum gestor') + ' da amostra deste grupo respondeu de outro jeito, por isso a margem de erro não pôde ser estimada. O valor real pode ser um pouco diferente de 0% ou 100%.';
+  // marca com asterisco os números afetados e põe a nota no cartão (roda depois de cada desenho)
+  const flagNoMoe = () => {
+    root.querySelectorAll('.tg-nomoe-note').forEach((n) => n.remove());
+    root.querySelectorAll('.tg-nomoe').forEach((n) => { n.classList.remove('tg-nomoe'); n.removeAttribute('title'); });
+    const boxes = new Map();
+    root.querySelectorAll('[data-field="pct"][data-where^="key="]').forEach((el) => {
+      if (el.closest('[hidden]')) return;
+      const idx = IDX[el.getAttribute('data-source')];
+      const row = idx && idx.get(decodeURIComponent(el.getAttribute('data-where').slice(4)));
+      if (!noMoe(row)) return;
+      el.classList.add('tg-nomoe'); el.title = noMoeTxt(row._ds, true).slice(2);
+      const box = el.closest('.tg-card, .tg-kpi');
+      if (box) boxes.set(box, row._ds);
+    });
+    boxes.forEach((ds, box) => {
+      const p = document.createElement('p'); p.className = 'tg-nomoe-note';
+      p.textContent = noMoeTxt(ds, box.classList.contains('tg-kpi'));
+      const base = box.querySelector(':scope > .tg-base');
+      if (base) box.insertBefore(p, base); else box.append(p);
+    });
+  };
   const unit = () => CUR === 'escolas' ? 'escolas' : 'gestores';
 
   // ---------- tooltip ----------
@@ -231,9 +264,10 @@
   root.addEventListener('pointerleave', () => { tip.hidden = true; });
   const rowTip = (label, row, br, rec) => [
     label,
-    recName(rec) + ': ' + pct(row.pct) + (row.moe ? ' (margem de erro ' + pp(row.moe) + ')' : ''),
+    recName(rec) + ': ' + pct(row.pct) + (row.moe ? ' (margem de erro ' + pp(row.moe) + ')' : noMoe(row) ? '*' : ''),
     br && rec !== TOTAL ? 'Brasil: ' + pct(br.pct) : '',
-    row.n ? 'Cerca de ' + nfc.format(row.n) + ' ' + (row._ds === 'escolas' ? 'escolas' : 'gestores') : ''
+    row.n ? 'Cerca de ' + nfc.format(row.n) + ' ' + (row._ds === 'escolas' ? 'escolas' : 'gestores') : '',
+    noMoe(row) ? noMoeTxt(row._ds, true) : ''
   ];
 
   const fail = (el, st) => {
@@ -340,14 +374,18 @@
     return items;
   };
 
+  // tom de uma escala ordenada: t = 0 é o azul mais claro, t = 1 o mais escuro, nos dois temas.
+  // (Opacidade não serve: no tema escuro, mais transparente fica mais escuro, e a legenda se inverte.)
+  const tone = (t) => 'color-mix(in oklab, var(--seq-escuro) ' + Math.round(t * 100) + '%, var(--seq-claro))';
+
   // ---------- ordered stacked bar ----------
   const stack = (el, ind, resps, rec, opts = {}) => {
     const extra = opts.extra || [], all = resps.concat(extra), rev = !!opts.reverse;
     const cur = all.map((r) => get(ind, '', r, rec)), br = all.map((r) => get(ind, '', r, TOTAL));
     if (cur.slice(0, resps.length).some((x) => !x)) return emptyMsg(el, NODATA);
     const k = resps.length;
-    const op = (i) => { if (i >= k) return '1'; const j = rev ? k - 1 - i : i; return (0.2 + 0.8 * j / Math.max(1, k - 1)).toFixed(2); };
-    const col = (i) => i >= k ? 'var(--cds-chart-grid)' : dash.colors[0];
+    const op = () => '1';
+    const col = (i) => i >= k ? 'var(--cds-chart-grid)' : tone((rev ? k - 1 - i : i) / Math.max(1, k - 1));
     const w = document.createElement('div'); w.className = 'tg-stack-wrap';
     const mk = (rowsArr, thin, cap, recX) => {
       const c = document.createElement('div'); c.className = 'tg-stack-cap'; c.textContent = cap;
@@ -572,7 +610,7 @@
 
     (() => {
       const el = document.getElementById('ch-percepcao');
-      const C = 'var(--color-positivo)', N = 'var(--cds-chart-muted)', X = 'var(--color-negativo)', O = 'var(--cds-chart-grid)';
+      const C = dash.colors[0], N = 'var(--cds-chart-muted)', X = dash.colors[1], O = 'var(--cds-chart-grid)';
       const its = Object.keys(D8).map((g) => {
         const c = get('D8', g, 'Concorda', rec), n = get('D8', g, 'Não concorda nem discorda', rec), x = get('D8', g, 'Discorda', rec);
         return c && n && x ? { g, c, n, x, o: Math.max(0, 100 - c.pct - n.pct - x.pct) } : null;
@@ -652,17 +690,17 @@
         return rows.every(Boolean) ? { g, rows, hi: rows[0].pct + rows[1].pct } : null;
       }).filter(Boolean).sort((a, b) => b.hi - a.hi);
       if (!its.length) return emptyMsg(el, NODATA);
-      const op = (i) => (1 - 0.8 * i / (FREQ.length - 1)).toFixed(2);
+      const fc = (i) => tone(1 - i / (FREQ.length - 1)); // "Sempre" é o mais escuro, "Nunca" o mais claro
       const w = document.createElement('div'); w.className = 'tg-lik';
       const lg = document.createElement('div'); lg.className = 'tg-legend';
-      lg.innerHTML = FREQ.map((f, i) => '<span><span class="tg-sw" style="background:' + dash.colors[0] + ';opacity:' + op(i) + '"></span>' + f + '</span>').join('');
+      lg.innerHTML = FREQ.map((f, i) => '<span><span class="tg-sw" style="background:' + fc(i) + '"></span>' + f + '</span>').join('');
       w.append(lg);
       for (const it of its) {
         const r = document.createElement('div'); r.className = 'tg-lik-row';
         const l = document.createElement('div'); l.className = 'tg-bar-label'; l.textContent = A19L[it.g];
         const s = document.createElement('div'); s.className = 'tg-stack';
         it.rows.forEach((row, i) => {
-          const p = document.createElement('div'); p.style.width = row.pct + '%'; p.style.background = dash.colors[0]; p.style.opacity = op(i);
+          const p = document.createElement('div'); p.style.width = row.pct + '%'; p.style.background = fc(i);
           const brr = get('A19', it.g, FREQ[i], TOTAL);
           setTip(p, [it.g, FREQ[i] + ': ' + pct(row.pct) + (row.moe ? ' (margem de erro ' + pp(row.moe) + ')' : ''), rec !== TOTAL && brr ? 'Brasil: ' + pct(brr.pct) : '']);
           s.append(p);
@@ -755,7 +793,8 @@
     const bl = document.createElement('span'); bl.className = 'tg-verdict'; bl.append(document.createTextNode('Brasil ')); const bv = document.createElement('span'); bv.textContent = pct(br.pct); markRow(bv, br); bl.append(bv); axv.append(bl);
     ax.append(axl, axt, axv); w.append(ax);
     for (const { s, row } of rows) {
-      const diff = row.pct - br.pct, out = row.moe != null && Math.abs(diff) > row.moe;
+      // sem margem estimada, não dá para afirmar que o grupo está acima ou abaixo do Brasil
+      const nm = noMoe(row), diff = row.pct - br.pct, out = !nm && row.moe != null && Math.abs(diff) > row.moe;
       const col = !out ? 'var(--cds-chart-muted)' : diff > 0 ? 'var(--color-positivo)' : 'var(--color-negativo)';
       const r = document.createElement('div'); r.className = 'tg-dot-row';
       const l = document.createElement('div'); l.className = 'tg-dot-lab'; l.textContent = segName(s);
@@ -768,12 +807,13 @@
       const b = document.createElement('b'); b.textContent = pct(row.pct); markRow(b, row);
       const vd = document.createElement('span'); vd.className = 'tg-verdict' + (out ? (diff > 0 ? ' tg-up' : ' tg-down') : '');
       if (out) { const ar = document.createElement('span'); ar.className = 'tg-arrow'; ar.setAttribute('aria-hidden', 'true'); ar.textContent = diff > 0 ? '▲' : '▼'; vd.append(ar, document.createTextNode(diff > 0 ? 'acima do Brasil' : 'abaixo do Brasil')); }
-      else vd.textContent = 'dentro da margem';
+      else vd.textContent = nm ? 'sem margem estimada' : 'dentro da margem';
       v.append(b, vd);
       r.append(l, t, v); setTip(r, [...rowTip(m.label, row, br, s), vd.textContent.replace(/^[▲▼]/, '')]); w.append(r);
     }
     const lg = document.createElement('div'); lg.className = 'tg-legend'; lg.style.marginTop = 'var(--cds-gap-sm)';
     lg.innerHTML = '<span><span class="tg-sw" style="background:var(--color-positivo);border-radius:50%"></span>Acima do Brasil</span><span><span class="tg-sw" style="background:var(--color-negativo);border-radius:50%"></span>Abaixo do Brasil</span><span><span class="tg-sw" style="background:var(--cds-chart-muted);border-radius:50%"></span>Diferença dentro da margem de erro</span><span><span class="tg-refkey"></span>Brasil</span>';
+    if (rows.some((x) => noMoe(x.row))) { const s = document.createElement('span'); s.textContent = '* sem margem de erro estimada'; lg.append(s); }
     w.append(lg); el.replaceChildren(w);
   };
 
@@ -917,6 +957,7 @@
     });
 
     if (view === 'gestores') drawGestores(recEff, anim); else drawEscolas(recEff, anim);
+    flagNoMoe();
     pararFala();
     document.querySelectorAll('#' + view + ' .tg-card, #card-comparar').forEach(textAlt);
   }
