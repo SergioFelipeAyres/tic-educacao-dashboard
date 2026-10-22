@@ -371,6 +371,72 @@
     w.append(lg); el.replaceChildren(w);
   };
 
+  // ---------- acessibilidade: versão em texto (e em voz) de cada gráfico ----------
+  // os números vêm das mesmas linhas do tooltip, que só aparecem com o mouse
+  const fala = 'speechSynthesis' in window ? window.speechSynthesis : null;
+  let falando = null;
+  const tituloDe = (card) => {
+    const t = card.querySelector('.tg-card-title'); if (t) return t.textContent;
+    const ind = document.getElementById('tg-cmp-ind').selectedOptions[0], cat = document.getElementById('tg-cmp-cat').selectedOptions[0];
+    return 'Compare grupos' + (ind && cat ? ': ' + ind.textContent + ', por ' + cat.textContent : '');
+  };
+  const pararFala = () => { if (!fala) return; fala.cancel(); if (falando) falando.textContent = 'Ouvir'; falando = null; };
+  const ouvir = (btn, card) => {
+    if (falando === btn) return pararFala();
+    pararFala();
+    const parts = [tituloDe(card)];
+    card.querySelectorAll('.tg-alt > ul > li').forEach((li) => {
+      const sub = li.querySelector('ul');
+      if (sub) parts.push(li.querySelector('b').textContent, ...[...sub.children].map((s) => s.textContent));
+      else parts.push(li.textContent);
+    });
+    const base = card.querySelector('.tg-base'); if (base) parts.push(base.textContent);
+    const u = new SpeechSynthesisUtterance(parts.map((p) => p.trim().replace(/[:.]$/, '')).filter(Boolean).join('. ').replace(/±/g, 'mais ou menos ').replace(/p\.p\./g, 'pontos percentuais'));
+    u.lang = 'pt-BR';
+    u.onend = u.onerror = () => { if (falando === btn) pararFala(); };
+    falando = btn; btn.textContent = 'Parar'; fala.speak(u);
+  };
+  const textAlt = (card) => {
+    const chart = card && card.querySelector('.tg-chart'); if (!chart) return;
+    // barras, figuras e eixos são só desenho: o leitor de tela lê os mesmos números no texto abaixo
+    chart.querySelectorAll('.tg-track,.tg-stack,.tg-dot-track,.tg-iso10,.tg-iso100,.tg-sw,.tg-refkey').forEach((el) => el.setAttribute('aria-hidden', 'true'));
+    const groups = new Map();
+    chart.querySelectorAll('[data-tip]').forEach((el) => {
+      if (el.closest('.tg-thin')) return; // barra fina do Brasil: o valor já está na linha do recorte
+      const [head, ...rest] = (tips.get(el.dataset.tip) || []).filter(Boolean);
+      if (!head) return;
+      if (!groups.has(head)) groups.set(head, []);
+      groups.get(head).push(rest);
+    });
+    const ul = document.createElement('ul');
+    if (groups.size) {
+      for (const [head, items] of groups) {
+        const li = document.createElement('li'), b = document.createElement('b');
+        if (items.length === 1) { b.textContent = head + ': '; li.append(b, items[0].join('; ')); }
+        else {
+          b.textContent = head + ':'; const sub = document.createElement('ul');
+          items.forEach((it) => { const s = document.createElement('li'); s.textContent = it.join('; '); sub.append(s); });
+          li.append(b, sub);
+        }
+        ul.append(li);
+      }
+    } else chart.innerText.split('\n').map((t) => t.trim()).filter(Boolean).forEach((t) => { const li = document.createElement('li'); li.textContent = t; ul.append(li); });
+    let det = card.querySelector('.tg-alt');
+    if (!det) {
+      det = document.createElement('details'); det.className = 'tg-alt';
+      const s = document.createElement('summary'); s.textContent = fala ? 'Ver em texto ou ouvir' : 'Ver os dados em texto';
+      det.append(s);
+      if (fala) {
+        const b = document.createElement('button'); b.type = 'button'; b.className = 'tg-ouvir'; b.textContent = 'Ouvir';        b.addEventListener('click', () => ouvir(b, card));
+        det.append(b);
+      }
+      det.addEventListener('toggle', () => { if (!det.open && falando && det.contains(falando)) pararFala(); });
+      chart.after(det);
+    }
+    const old = det.querySelector(':scope > ul'); if (old) old.replaceWith(ul); else det.append(ul);
+  };
+  window.addEventListener('hashchange', pararFala);
+
   // ---------- view (navbar) ----------
   const VIEWS = ['inicio', 'escolas', 'gestores', 'sobre'];
   const DASH = ['escolas', 'gestores'];
@@ -469,6 +535,7 @@
       const l2 = document.createElement('span'); l2.innerHTML = '<span class="tg-sw" style="background:var(--color-homens)"></span>Homens '; l2.append(sm);
       lg.append(l1, l2); say.append(lg);
       const brf = get('A1', '', 'Feminino', TOTAL);
+      setTip(l1, rowTip('Mulheres', f, brf, rec)); setTip(l2, rowTip('Homens', m, get('A1', '', 'Masculino', TOTAL), rec));
       if (rec !== TOTAL && brf) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.style.marginTop = 'var(--cds-gap-xs)'; p.textContent = 'Brasil: ' + pct(brf.pct) + ' mulheres'; say.append(p); }
       if (f.moe) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.textContent = 'Margem de erro: ' + pp(f.moe); say.append(p); }
       w.append(say); el.replaceChildren(w);
@@ -549,6 +616,8 @@
       say.append(b, document.createTextNode(' dos gestores já usam IA na gestão ('), v, document.createTextNode(').'));
       if (n) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.style.marginTop = 'var(--cds-gap-xs)'; const nv = document.createElement('span'); nv.textContent = pct(n.pct); markRow(nv, n); p.append(document.createTextNode('Não usam: '), nv); say.append(p); }
       const br = get('D9A', '', 'Sim', TOTAL);
+      setTip(v, rowTip('Usam IA na gestão', s, br, rec));
+      if (n) setTip(say.querySelector('.tg-stack-cap span'), rowTip('Não usam', n, get('D9A', '', 'Não', TOTAL), rec));
       if (rec !== TOTAL && br) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.textContent = 'Brasil: ' + pct(br.pct); say.append(p); }
       if (s.moe) { const p = document.createElement('div'); p.className = 'tg-stack-cap'; p.textContent = 'Margem de erro: ' + pp(s.moe); say.append(p); }
       w.append(say); el.replaceChildren(w);
@@ -701,7 +770,7 @@
       if (out) { const ar = document.createElement('span'); ar.className = 'tg-arrow'; ar.setAttribute('aria-hidden', 'true'); ar.textContent = diff > 0 ? '▲' : '▼'; vd.append(ar, document.createTextNode(diff > 0 ? 'acima do Brasil' : 'abaixo do Brasil')); }
       else vd.textContent = 'dentro da margem';
       v.append(b, vd);
-      r.append(l, t, v); setTip(r, rowTip(m.label, row, br, s)); w.append(r);
+      r.append(l, t, v); setTip(r, [...rowTip(m.label, row, br, s), vd.textContent.replace(/^[▲▼]/, '')]); w.append(r);
     }
     const lg = document.createElement('div'); lg.className = 'tg-legend'; lg.style.marginTop = 'var(--cds-gap-sm)';
     lg.innerHTML = '<span><span class="tg-sw" style="background:var(--color-positivo);border-radius:50%"></span>Acima do Brasil</span><span><span class="tg-sw" style="background:var(--color-negativo);border-radius:50%"></span>Abaixo do Brasil</span><span><span class="tg-sw" style="background:var(--cds-chart-muted);border-radius:50%"></span>Diferença dentro da margem de erro</span><span><span class="tg-refkey"></span>Brasil</span>';
@@ -848,6 +917,8 @@
     });
 
     if (view === 'gestores') drawGestores(recEff, anim); else drawEscolas(recEff, anim);
+    pararFala();
+    document.querySelectorAll('#' + view + ' .tg-card, #card-comparar').forEach(textAlt);
   }
 
   showView(view);

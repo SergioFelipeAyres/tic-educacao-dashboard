@@ -50,7 +50,7 @@
     if (rec) { const r = document.createElement('span'); r.className = 'tg-shot-rec'; r.textContent = 'Recorte: ' + rec; head.append(r); }
     const clone = card.cloneNode(true);
     clone.removeAttribute('id');
-    clone.querySelectorAll('.tg-share').forEach((b) => b.remove());
+    clone.querySelectorAll('.tg-share, .tg-alt').forEach((b) => b.remove());
     clone.querySelectorAll('[id]').forEach((el) => { if (!el.closest('svg')) el.removeAttribute('id'); });
     // seletores viram texto para sair legíveis na imagem
     const cloneSels = [...clone.querySelectorAll('select')];
