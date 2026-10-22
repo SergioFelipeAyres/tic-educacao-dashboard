@@ -285,6 +285,7 @@ body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(-
 .tg-about p,.tg-about li{font-size:var(--cds-font-size-body);line-height:1.55}
 .tg-about ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem}
 .tg-about .tg-fact-link{margin-top:auto}
+.tg-about-links{margin-top:auto;display:flex;flex-wrap:wrap;gap:var(--cds-gap-sm) var(--cds-gap-lg)}
 .tg-about-head{display:flex;align-items:center;gap:var(--cds-gap-md)}
 .tg-autor{display:flex;align-items:center;gap:var(--cds-gap-lg)}
 .tg-autor-foto{width:6.5rem;height:6.5rem;flex:none;border-radius:50%;object-fit:cover;background:var(--cds-chart-grid);box-shadow:0 0 0 3px var(--color-panel),0 0 0 5px var(--cds-chart-categorical-1)}
